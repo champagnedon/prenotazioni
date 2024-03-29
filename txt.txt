@@ -1,0 +1,23 @@
+
+<?php
+    if (session_status() === PHP_SESSION_NONE) {
+        ob_start();
+        session_start();
+        $_SESSION["sessionid"] = session_id();
+        $_SESSION["redirect"] = "index.php";
+        if(isset($_SESSION["logged"]) == false){
+            $_SESSION["logged"] = false;
+        }
+    }
+    if(isset($_POST["logout"])){
+        session_unset();
+        header("Location: index.php");
+    }
+    $conn = require_once("components/conn.php");
+    echo require_once("components/header.php");
+?>
+
+
+$rec = mysqli_query($conn, $sql);
+$numrows = mysqli_num_rows($rec);
+$res = mysqli_fetch_array($rec);

@@ -1,0 +1,23 @@
+Per slide artisti
+SELECT * FROM tartista;
+
+Per slide concerti
+SELECT c.id,c.nome,c.data,c.path,s.nome AS nomeSpazio,a.stageName  AS stageName 
+FROM tconcerto AS c
+JOIN tspazio AS s ON c.spazio = s.id
+JOIN tartista AS a ON c.idArtista = a.id;
+
+Per biglietti
+SELECT b.id,b.prezzo,b.disponibile,c.nome AS nomeConcerto,c.data,s.nome AS nomeSpazio,a.stageName AS nomeArtista
+FROM tbiglietto AS b 
+JOIN tconcerto AS c ON c.id = b.idConcerto
+JOIN tspazio AS s ON c.spazio = s.id
+JOIN tartista AS a ON c.idArtista = a.id;
+
+Per ricerca
+SELECT b.id,b.prezzo,b.disponibile,c.nome AS nomeConcerto,c.data,s.nome AS nomeSpazio,a.stageName AS nomeArtista
+FROM tbiglietto AS b 
+JOIN tconcerto AS c ON c.id = b.idConcerto
+JOIN tspazio AS s ON c.spazio = s.id
+JOIN tartista AS a ON c.idArtista = a.id
+WHERE b.disponibile = 1 AND (c.nome LIKE '%sfe%' OR s.nome LIKE '%sfe%' OR a.stageName LIKE '%sfe%' OR c.data = '%sfe%');
